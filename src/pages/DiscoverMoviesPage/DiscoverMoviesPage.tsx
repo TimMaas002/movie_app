@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
 import "./DiscoverMoviesPage.css";
-// import MovieItem from "../components/MovieItem";
 
 type Movie = {
   Title: string;
@@ -27,22 +27,26 @@ function DiscoverMoviesPage() {
   const [searchText, setSearchText] = useState("");
   const [state, setState] = useState<SearchState>({ status: "idle" });
 
-  const search = async () => {
-    console.log("Start searching for:", searchText);
-    setState({ status: "loading" });
+  const history = useHistory();
 
-    const queryParam = encodeURIComponent(searchText);
+  // const search = async () => {
+  //   setState({ status: "loading" });
 
-    const apiKey = `fd525055`;
+  //   const queryParam = encodeURIComponent(searchText);
+  //   const apiKey = `fd525055`;
 
-    const response = await axios.get(
-      `https://omdbapi.com/?apikey=${apiKey}&s=${queryParam}`
-    );
+  //   const response = await axios.get(
+  //     `https://omdbapi.com/?apikey=${apiKey}&s=${queryParam}`
+  //   );
 
-    setState({ status: "success", data: response.data });
+  //   setState({ status: "success", data: response.data });
+  // };
 
-    console.log("Success!", response);
+  const navigateToSearch = () => {
+    const routeParam = encodeURIComponent(searchText);
+    history.push(`/discover/${routeParam}`);
   };
+
   return (
     <div>
       <h1>Discover some movies!</h1>
@@ -51,7 +55,8 @@ function DiscoverMoviesPage() {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
-        <button onClick={search}>Search</button>
+        {/* <button onClick={search}>Search</button> */}
+        <button onClick={navigateToSearch}>Search</button>
       </p>
       {state.status === "loading" && <p>Searching...</p>}
       {state.status === "success" && (
@@ -62,7 +67,9 @@ function DiscoverMoviesPage() {
               return (
                 <li className="movie-item" key={movie.imdbID}>
                   <div>
-                    <p>{movie.Title}</p>
+                    <Link to={`/movie/${movie.imdbID}`}>
+                      <p>{movie.Title}</p>
+                    </Link>
                   </div>
                   <span>({movie.Year})</span>
                   <img src={movie.Poster} alt={movie.Title} />

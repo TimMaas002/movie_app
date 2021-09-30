@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
-import DiscoverMoviesPage from "./pages/DiscoverMoviesPage";
+import DiscoverMoviesPage from "./pages/DiscoverMoviesPage/DiscoverMoviesPage";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import NavBar from "./components/NavBar";
+import MoviePage from "./pages/MoviePage/MoviePage";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <header className="App-header">
         <NavBar />
         <Switch>
-          <Route path="/discover-movies" component={DiscoverMoviesPage} />
+          <Route path="/movie/:imdbID" component={MoviePage} />
+          <Route path="/discover/:searchText?" component={DiscoverMoviesPage} />
           <Route path="/about" component={AboutPage} />
           <Route exact path="/" component={HomePage} />
         </Switch>

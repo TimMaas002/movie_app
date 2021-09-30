@@ -23,9 +23,9 @@ function NavBar() {
       <NavLink
         activeStyle={{ fontWeight: "bold" }}
         className="App-link"
-        to="/discover-movies"
+        to="/discover"
       >
-        Discover Movies
+        Discover
       </NavLink>
     </div>
   );

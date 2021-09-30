@@ -1,0 +1,32 @@
+.single-movie {
+  display: flex;
+  flex-direction: column;
+}
+
+.single-movie h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: hsl(43, 100%, 50%);
+}
+
+.single-movie span p {
+  font-size: 1.75rem;
+  color: hsl(90, 60%, 96%);
+}
+
+.movie-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.movie-genre {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+
+.movie-poster img {
+  margin: 1rem;
+}

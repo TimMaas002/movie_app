@@ -25,6 +25,10 @@
   height: 100px;
 }
 
+.movie-item a {
+  color: #61dafb;
+}
+
 .movie-item p {
   font-size: 1.25rem;
   font-weight: bold;
