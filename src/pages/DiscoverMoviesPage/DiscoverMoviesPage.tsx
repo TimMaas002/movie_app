@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import "./DiscoverMoviesPage.css";
 
 type Movie = {
@@ -28,24 +28,33 @@ function DiscoverMoviesPage() {
   const [state, setState] = useState<SearchState>({ status: "idle" });
 
   const history = useHistory();
-
-  // const search = async () => {
-  //   setState({ status: "loading" });
-
-  //   const queryParam = encodeURIComponent(searchText);
-  //   const apiKey = `fd525055`;
-
-  //   const response = await axios.get(
-  //     `https://omdbapi.com/?apikey=${apiKey}&s=${queryParam}`
-  //   );
-
-  //   setState({ status: "success", data: response.data });
-  // };
+  const routeParams = useParams<{ searchText: string }>();
 
   const navigateToSearch = () => {
     const routeParam = encodeURIComponent(searchText);
     history.push(`/discover/${routeParam}`);
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!routeParams.searchText) {
+        setState({ status: "idle" });
+        return;
+      }
+
+      setState({ status: "loading" });
+
+      const apiKey = `fd525055`;
+      const queryParam = encodeURIComponent(routeParams.searchText);
+
+      const response = await axios.get(
+        `https://omdbapi.com/?apikey=${apiKey}&s=${queryParam}`
+      );
+
+      setState({ status: "success", data: response.data });
+    }
+    fetchData();
+  }, [routeParams.searchText]);
 
   return (
     <div>
